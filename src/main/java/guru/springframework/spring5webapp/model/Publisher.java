@@ -1,9 +1,8 @@
 package guru.springframework.spring5webapp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Publisher {
@@ -12,13 +11,24 @@ public class Publisher {
     private Long id;
     private String name;
     private String address;
+    private String city;
+    private String province;
+    private String cap;
+
+    @OneToMany
+    @JoinColumn(name = "publisher_id")
+    private Set<Book> books = new HashSet<>();
+
 
     public Publisher() {
     }
 
-    public Publisher(String name, String address) {
+    public Publisher(String name, String address, String city, String province, String cap) {
         this.name = name;
         this.address = address;
+        this.city = city;
+        this.province = province;
+        this.cap = cap;
     }
 
     public Long getId() {
@@ -45,6 +55,38 @@ public class Publisher {
         this.address = address;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCap() {
+        return cap;
+    }
+
+    public void setCap(String cap) {
+        this.cap = cap;
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -66,6 +108,9 @@ public class Publisher {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", province='" + province + '\'' +
+                ", cap='" + cap + '\'' +
                 '}';
     }
 }
